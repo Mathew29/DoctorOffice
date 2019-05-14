@@ -120,7 +120,7 @@ namespace DoctorOffice.Models
         while(doctorQueryRdr.Read())
         {
           int thisDoctorId = doctorQueryRdr.GetInt32(0);
-          string doctorDescription = doctorQueryRdr.GetString(1);
+          string doctorName = doctorQueryRdr.GetString(1);
           Doctor foundDoctor = new Doctor(doctorName, thisDoctorId);
           doctors.Add(foundDoctor);
         }
@@ -153,7 +153,7 @@ namespace DoctorOffice.Models
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
-      MySqlCommand cmd = new MySqlCommand(@"INSERT INTO specialty (specialty_name) VALUES (@specialty_name);", conn);
+      MySqlCommand cmd = new MySqlCommand(@"INSERT INTO specialties (specialty_name) VALUES (@specialty_name);", conn);
       cmd.Parameters.AddWithValue("@specialty_name", this._specialty);
 
       cmd.ExecuteNonQuery();
@@ -173,12 +173,12 @@ namespace DoctorOffice.Models
 
       Specialty selectedSpecialty = Specialty.Find(specialtyId);
       Dictionary<string, object> model = new Dictionary<string, object>();
-      List<Patient> doctorSpecialty = selectedSpecialty.GetDoctors();
+      List<Doctor> doctorSpecialty = selectedSpecialty.GetDoctors();
       model.Add("specialty", selectedSpecialty);
 
       foreach (Doctor doctor in doctorSpecialty)
       {
-        patient.Delete();
+        doctor.Delete();
       }
 
       cmd.CommandText = @"DELETE FROM specialties WHERE id = @thisId;";

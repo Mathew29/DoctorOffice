@@ -82,7 +82,6 @@ namespace DoctorOffice.Controllers
       List<Patient> doctorPatients = foundDoctor.GetPatients();
       model.Add("patient", doctorPatients);
       model.Add("doctor", foundDoctor);
-      // return View(model);
       return RedirectToAction("Show", "Categories");
       //return RedirectToAction("actionName", "controllerName"); goes to a cshtml page in a different controller.
     }
