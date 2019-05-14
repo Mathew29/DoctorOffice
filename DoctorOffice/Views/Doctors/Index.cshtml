@@ -1,0 +1,16 @@
+<h1>Doctor's office</h1>
+<hr />
+<h2>Doctors:</h2>
+
+@if (Model.Count != 0)
+{
+  <ul>
+    @foreach (var doctor in Model)
+    {
+      <li><a href="/doctors/@doctor.GetId()">@doctor.GetName()</a></li>
+    }
+  </ul>
+}
+
+<h4><a href="/doctors/new">Add a new doctor</a></h4>
+<h4><a href="/">Return home</a></h4>
